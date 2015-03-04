@@ -1,4 +1,2 @@
 Milestone #1 (15.02-15.03.2015)
 -Generate a random password. Including options for uppercase, lowercase, digits, special symbols.
-
-
