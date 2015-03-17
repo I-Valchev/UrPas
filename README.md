@@ -13,7 +13,7 @@ The licensed version includes: unlimited number of saved passwords; unlimited nu
 How to run the tests?
 ---
 
-Dependencies: coverage.py (downloadable at Python's official site or by running "sudo pip install coverage"
+Dependencies: coverage.py (downloadable from Python's official site or by running "sudo pip install coverage"
 
-Run the following command in the main directory: "make"
+Run the following command in the main directory: "make".
 Output is generated in htmlcov/index.html
