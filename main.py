@@ -5,6 +5,8 @@ import unittest
 password = Password.Password()
 base = Database.Database()
 
-base.add_user("BasiParolata", "dsjfodasjffkaf")
-# get the number of rows in the resultset
-base.print_users()
+#base.clear_users()
+#base.add_user("Pesho", "123456")
+#base.add_user("Pesho", "123456")
+#print(base.get_user_id("Pesho"))
+#base.print_users()
