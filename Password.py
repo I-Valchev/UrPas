@@ -1,5 +1,6 @@
 import random
 import string
+import hashlib
 
 class Password:
 	
@@ -9,17 +10,16 @@ class Password:
 		self.digits = ""
 		self.set_lowercase(True) #default generation
 		self.length = 10
-		self.times_to_encrypt = 1
+		self.times_to_encrypt = 100000
 
-
-	def times_to_encrypt(self,times):
+	def set_times_to_encrypt(self,times):
 		self.times_to_encrypt = times
 
 	def encrypt(self, password):
-		encrypted_password = hashlib.sha224(password)
+		encrypted_password = hashlib.sha224(password).hexdigest()
 
-		for i in range(0, self.times_to_encrypt):
-			encrypted_password = hashlib.sha224(enc.hexdigest())
+		for i in range(0, self.times_to_encrypt-1):
+			encrypted_password = hashlib.sha224(encrypted_password).hexdigest()
 
 		return encrypted_password
 
