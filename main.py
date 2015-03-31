@@ -5,13 +5,6 @@ import User
 import unittest
 
 
-import random
-import string
-from Crypto.Cipher import AES
-import base64
-import os
-
-
 password = Password.Password()
 base = Database.Database()
 
