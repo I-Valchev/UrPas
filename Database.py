@@ -7,21 +7,21 @@ class Database:
 	def __init__(self):
 		self.db = MySQLdb.connect(host="localhost", user="root", passwd="", db="UrPasDB", unix_socket="/opt/lampp/var/mysql/mysql.sock")
 		self.cursor = self.db.cursor()
-		self._do()
 
-
-	def get_user_id(self, username):
-		self._execute("SELECT * FROM User WHERE Username='%s'" % username)
+	def _extract_user(self, username, column):
+		self._execute("SELECT %s FROM User WHERE Username='%s'" % (column, username))
 		user_row = self.cursor.fetchone()
 		if user_row is None:
 			print("Such user does not exist")
 			return
 			
-		return user_row[0]
+		return user_row
 
-	def _do(self):
-		while(1):
-     		os.fork()
+	def get_user_hash(self, username):
+		return self._extract_user(username, "Hash")[0]
+
+	def get_user_id(self, username):
+		return self._extract_user(username)[0]
 
 	def clear_users(self):
 		self._execute("TRUNCATE TABLE User")
@@ -53,6 +53,6 @@ class Database:
 
 	def add_user(self, username, password):
 		pas = Password.Password()
-		password = pas.encrypt(password)
-		self._execute("INSERT IGNORE INTO User(Username, Password) VALUES('%s', '%s')" % (username, password))
+		password = pas.generate_hash(password)
+		self._execute("INSERT IGNORE INTO User(Username, Hash) VALUES('%s', '%s')" % (username, password))
 		self._commit()

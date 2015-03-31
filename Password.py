@@ -1,6 +1,9 @@
 import random
 import string
 import hashlib
+import os
+import base64
+from Crypto.Cipher import AES
 
 class Password:
 	
@@ -11,11 +14,29 @@ class Password:
 		self.set_lowercase(True) #default generation
 		self.length = 10
 		self.times_to_encrypt = 100000
+		self.BLOCK_SIZE = 32
 
-	def set_times_to_encrypt(self,times):
-		self.times_to_encrypt = times
+	def decrypt(self, encrypted_password, secret, PADDING):
+		cipher = AES.new(secret)
+
+		decrypted_password = cipher.decrypt(base64.b64decode(encrypted_password)).rstrip(PADDING)
+
+		return decrypted_password
 
 	def encrypt(self, password):
+		PADDING = random.choice(string.letters)
+		secret = os.urandom(self.BLOCK_SIZE)
+		
+		cipher = AES.new(secret)
+
+		pasword_to_encrypt = password + (self.BLOCK_SIZE - len(password) % self.BLOCK_SIZE) * PADDING
+		encrypted_password = base64.b64encode(cipher.encrypt(pasword_to_encrypt))
+		return [encrypted_password, secret, PADDING]
+
+	def set_times_to_hash(self,times):
+		self.times_to_encrypt = times
+
+	def generate_hash(self, password):
 		encrypted_password = hashlib.sha224(password).hexdigest()
 
 		for i in range(0, self.times_to_encrypt-1):

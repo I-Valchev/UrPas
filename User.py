@@ -1,9 +1,14 @@
 import Database
+import Password
 
 class User():
-	def __init__(self, username):
-		self.username = username
-		self.password = Password.Password
+	def __init__(self, username, user_hash):
+		self.given_username = username
+		self.given_hash = Password.Password().generate_hash(user_hash)
+
+	def _authenticate(self):
+		if self.given_hash != Database.Database().get_user_hash(username):
+			self.__del__()
 
 	def set_password(self, password):
 		self.password = pasword
