@@ -16,22 +16,41 @@ class Password:
 		self.times_to_encrypt = 100000
 		self.BLOCK_SIZE = 32
 
-	def decrypt(self, encrypted_password, secret, PADDING):
+
+	#key
+	def decrypt(self, encrypted_password, key):
+		PADDING = self._extract_key(key)[0]
+		secret = self._extract_key(key)[1]
+
 		cipher = AES.new(secret)
 
 		decrypted_password = cipher.decrypt(base64.b64decode(encrypted_password)).rstrip(PADDING)
 
 		return decrypted_password
 
-	def encrypt(self, password):
+	def _extract_key(self, key):
+		PADDING = key[0]
+		secret = key[1:]
+
+		return [PADDING, secret]
+
+	def generate_key(self):
 		PADDING = random.choice(string.letters)
-		secret = os.urandom(self.BLOCK_SIZE)
+		secret = base64.b64encode(os.urandom(self.BLOCK_SIZE))
+		return [PADDING, secret]
+
+	def import_key(self, key):
+		return base64.b64decode(key)
+
+	def encrypt(self, password, key):
+		PADDING = self._extract_key(key)[0]
+		secret = self._extract_key(key)[1]
 		
 		cipher = AES.new(secret)
 
 		pasword_to_encrypt = password + (self.BLOCK_SIZE - len(password) % self.BLOCK_SIZE) * PADDING
 		encrypted_password = base64.b64encode(cipher.encrypt(pasword_to_encrypt))
-		return [encrypted_password, secret, PADDING]
+		return encrypted_password
 
 	def set_times_to_hash(self,times):
 		self.times_to_encrypt = times
