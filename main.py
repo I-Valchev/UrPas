@@ -15,12 +15,15 @@ base = Database.Database()
 #user.create("Ivo", user_key)
 #print user.password
 
-user = User.User()
-user.auth("Ivo", "vVuhFMWp4epQGj45KFHLm49zhTnWEEL14dELs4itHEg8=")
-#user.add_data("www.google.bg", "some_random_pass")
-user.get_data("www.google.bg")
-print user.password
-
+#user = User.User()
+#user.auth("Ivo", "EMNOIof2ukd28atohk+Exi3s/+HOkr+DJpzP/FZ/jQzY=")
+#user.add_data("www.google.bg", "ivo_pass")
+#my_password = user.get_data("www.google.bg")
+#print my_password
 #print(base.get_user_id("Pesho"))
 #print(base.get_user_id("Pesho"))
 #base.print_users()
+'''
+User: Ivo
+Pass: EMNOIof2ukd28atohk+Exi3s/+HOkr+DJpzP/FZ/jQzY=
+'''

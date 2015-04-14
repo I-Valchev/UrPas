@@ -8,10 +8,24 @@ class Database:
 		self.cursor = self.db.cursor()
 
 	def _add_data(self, user, destination, password):
-		user_id = self.get_user_id(user.username)
-		self._execute("INSERT IGNORE INTO Passwords(UserID, Destination, Password) VALUES('%s', '%s','%s')" 
-			% (user_id, destination, password))
+		'''user_id = self.get_user_id(user.username)
+		self._execute("INSERT IGNORE INTO Passwords(UserID, Destination, Password) VALUES('%s', '%s','%s') \
+			WHERE NOT EXISTS (SELECT Destination FROM Passwords WHERE Destination = '%s');" 
+			% (user_id, destination, password, destination))
 		self._commit()
+		'''
+		user_id = self.get_user_id(user.username)
+		self._execute("SELECT Destination FROM Passwords WHERE Destination = '%s'" % destination)
+		command_result = self.cursor.fetchone()
+
+		if command_result is None:
+			self._execute("INSERT IGNORE INTO Passwords(UserID, Destination, Password) VALUES('%s', '%s','%s')" 
+				% (user_id, destination, password))
+			self._commit()
+			print "Data for " + destination + " added successfully"
+		else:
+			print "Warning: Destination (" + destination + ") already exists. Not added..."
+			pass
 
 	def _get_data(self, user, destination):
 		user_id = self.get_user_id(user.username)
@@ -70,6 +84,5 @@ class Database:
 		self.cursor.execute(string)
 
 	def _add_user(self, user, password):
-		print "Addint user"
 		self._execute("INSERT IGNORE INTO User(Username, Hash) VALUES('%s', '%s')" % (user, password))
 		self._commit()

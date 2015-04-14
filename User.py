@@ -23,7 +23,7 @@ class User():
 		db = Database.Database()
 		password = db._get_data(self, destination)
 		decrypted_password = Password.Password().decrypt(password, self.key)
-		print decrypted_password
+		return decrypted_password
 
 	def auth(self, username, password):
 		self.username = username
