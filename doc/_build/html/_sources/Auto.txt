@@ -7,7 +7,12 @@ Password
 .. autoclass:: Password.Password
     :members:
 
-Authenticate
-------------
-.. autoclass:: Authenticate.Authenticate
+Database
+--------
+.. autoclass:: Database.Database
+    :members:
+
+User
+----
+.. autoclass:: User.User
     :members:

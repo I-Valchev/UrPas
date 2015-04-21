@@ -7,6 +7,11 @@ class User():
 		pass
 
 	def add_data(self, destination, password):
+		'''Adds destination and password to user represented by the object its called from
+
+		:param destination: the desination the passwords belongs to
+		:param password: the password for the destination
+		'''
 		if not self.authenticated:
 			print "User not authenticated"
 			return
@@ -16,6 +21,11 @@ class User():
 		db._add_data(self, destination, encrypted_password)
 
 	def get_data(self, destination):
+		'''Returns the password of a desination (authentication required)
+
+		:param desination: the destination to extract the password from
+		:returns: String -- the decrypted password
+		'''
 		if not self.authenticated:
 			print "User not authenticated"
 			return
@@ -26,6 +36,13 @@ class User():
 		return decrypted_password
 
 	def auth(self, username, password):
+		'''Authenticates the user
+		Warning: If the authentication fails, data could not be added or extracted \
+		from the Database
+
+		:param username: the username of the user
+		:param password: the password of the user
+		'''
 		self.username = username
 		self.password = password
 		self.authenticated = False
@@ -33,6 +50,8 @@ class User():
 		self._authenticate()
 
 	def username(self):
+		'''Returns the username associated with this object
+		'''
 		return self.username
 
 	def _authenticate(self):
@@ -47,6 +66,11 @@ class User():
 	#	self.password = pasword
 
 	def create(self, user, password):
+		'''Creates a new user
+
+		:param user: the username of the user
+		:param password: the password of the new user
+		'''
 		print("Creating user...")
 		encoded_password = ''.join(Password.Password().generate_key())
 		self.password = encoded_password

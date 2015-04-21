@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Database &mdash; UrPas 1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UrPas 1 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../main.html">UrPas 1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for Database</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">MySQLdb</span>
+<span class="kn">import</span> <span class="nn">Password</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<div class="viewcode-block" id="Database"><a class="viewcode-back" href="../Auto.html#Database.Database">[docs]</a><span class="k">class</span> <span class="nc">Database</span><span class="p">:</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">MySQLdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s">&quot;root&quot;</span><span class="p">,</span> <span class="n">passwd</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="s">&quot;UrPasDB&quot;</span><span class="p">,</span> <span class="n">unix_socket</span><span class="o">=</span><span class="s">&quot;/opt/lampp/var/mysql/mysql.sock&quot;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+	<span class="k">def</span> <span class="nf">_add_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+		<span class="n">user_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_user_id</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="s">&quot;SELECT Destination FROM Passwords WHERE Destination = &#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span> <span class="n">destination</span><span class="p">)</span>
+		<span class="n">command_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+		<span class="k">if</span> <span class="n">command_result</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="s">&quot;INSERT IGNORE INTO Passwords(UserID, Destination, Password) VALUES(&#39;</span><span class="si">%s</span><span class="s">&#39;, &#39;</span><span class="si">%s</span><span class="s">&#39;,&#39;</span><span class="si">%s</span><span class="s">&#39;)&quot;</span> 
+				<span class="o">%</span> <span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">password</span><span class="p">))</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_commit</span><span class="p">()</span>
+			<span class="k">print</span> <span class="s">&quot;Data for &quot;</span> <span class="o">+</span> <span class="n">destination</span> <span class="o">+</span> <span class="s">&quot; added successfully&quot;</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">print</span> <span class="s">&quot;Warning: Destination (&quot;</span> <span class="o">+</span> <span class="n">destination</span> <span class="o">+</span> <span class="s">&quot;) already exists. Not added...&quot;</span>
+			<span class="k">pass</span>
+
+	<span class="k">def</span> <span class="nf">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">destination</span><span class="p">):</span>
+		<span class="n">user_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_user_id</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="s">&quot;SELECT Password FROM Passwords WHERE UserID=&#39;</span><span class="si">%s</span><span class="s">&#39; AND Destination = &#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">destination</span><span class="p">))</span>
+		<span class="n">user_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+		<span class="k">if</span> <span class="n">user_row</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+			<span class="k">print</span> <span class="s">&quot;No password&quot;</span>
+			<span class="k">return</span>
+		<span class="k">return</span> <span class="n">user_row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+	<span class="k">def</span> <span class="nf">_extract_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">column</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="s">&quot;SELECT </span><span class="si">%s</span><span class="s"> FROM User WHERE Username=&#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">username</span><span class="p">))</span>
+		<span class="n">user_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+		<span class="k">if</span> <span class="n">user_row</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+			<span class="k">print</span><span class="p">(</span><span class="s">&quot;Such user does not exist&quot;</span><span class="p">)</span>
+			<span class="k">return</span>
+			
+		<span class="k">return</span> <span class="n">user_row</span>
+
+<div class="viewcode-block" id="Database.get_user_hash"><a class="viewcode-back" href="../Auto.html#Database.Database.get_user_hash">[docs]</a>	<span class="k">def</span> <span class="nf">get_user_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+		<span class="sd">&#39;&#39;&#39;Given a username returns its hashed password</span>
+
+<span class="sd">		:param username: the username to extract the hash from</span>
+<span class="sd">		:returns: String -- the hashed password</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_user</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="s">&quot;Hash&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="Database.get_user_id"><a class="viewcode-back" href="../Auto.html#Database.Database.get_user_id">[docs]</a>	<span class="k">def</span> <span class="nf">get_user_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+		<span class="sd">&#39;&#39;&#39;Given a username returns the Database ID of that user</span>
+
+<span class="sd">		:param username: the username to get the ID from</span>
+<span class="sd">		:returns: Int -- the ID of the user</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_user</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="s">&quot;UserID&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="Database.clear_passwords"><a class="viewcode-back" href="../Auto.html#Database.Database.clear_passwords">[docs]</a>	<span class="k">def</span> <span class="nf">clear_passwords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&#39;&#39;&#39;Resets the Password database</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="s">&quot;TRUNCATE TABLE Passwords&quot;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_commit</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Database.clear_users"><a class="viewcode-back" href="../Auto.html#Database.Database.clear_users">[docs]</a>	<span class="k">def</span> <span class="nf">clear_users</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&#39;&#39;&#39;Resets the User database</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="s">&quot;TRUNCATE TABLE User&quot;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_commit</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Database.print_users"><a class="viewcode-back" href="../Auto.html#Database.Database.print_users">[docs]</a>	<span class="k">def</span> <span class="nf">print_users</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&#39;&#39;&#39;Prints all users from User database</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="s">&quot;SELECT * FROM User&quot;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Database.print_passwords"><a class="viewcode-back" href="../Auto.html#Database.Database.print_passwords">[docs]</a>	<span class="k">def</span> <span class="nf">print_passwords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&#39;&#39;&#39;Prints all (hashed) password from Passwords database</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="s">&quot;SELECT * FROM Passwords&quot;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">()</span>
+</div>
+	<span class="k">def</span> <span class="nf">_print</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="n">numrows</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">rowcount</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">numrows</span><span class="p">):</span>
+		    <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+		    <span class="k">print</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s">&quot;:&quot;</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">&quot;:&quot;</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+	<span class="k">def</span> <span class="nf">_commit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+	<span class="k">def</span> <span class="nf">_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">_add_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="s">&quot;INSERT IGNORE INTO User(Username, Hash) VALUES(&#39;</span><span class="si">%s</span><span class="s">&#39;, &#39;</span><span class="si">%s</span><span class="s">&#39;)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">))</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_commit</span><span class="p">()</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../main.html">UrPas 1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Ivo Valchev and Borislav Rusinov.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

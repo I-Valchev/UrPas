@@ -222,8 +222,154 @@
 </dd></dl>
 
 </div>
-<div class="section" id="authenticate">
-<h2>Authenticate<a class="headerlink" href="#authenticate" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="database">
+<h2>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Database.Database">
+<em class="property">class </em><tt class="descclassname">Database.</tt><tt class="descname">Database</tt><a class="reference internal" href="_modules/Database.html#Database"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Database.Database" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="Database.Database.clear_passwords">
+<tt class="descname">clear_passwords</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Database.html#Database.clear_passwords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Database.Database.clear_passwords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the Password database</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.clear_users">
+<tt class="descname">clear_users</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Database.html#Database.clear_users"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Database.Database.clear_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the User database</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.get_user_hash">
+<tt class="descname">get_user_hash</tt><big>(</big><em>username</em><big>)</big><a class="reference internal" href="_modules/Database.html#Database.get_user_hash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Database.Database.get_user_hash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a username returns its hashed password</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>username</strong> &#8211; the username to extract the hash from</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">String &#8211; the hashed password</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.get_user_id">
+<tt class="descname">get_user_id</tt><big>(</big><em>username</em><big>)</big><a class="reference internal" href="_modules/Database.html#Database.get_user_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Database.Database.get_user_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a username returns the Database ID of that user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>username</strong> &#8211; the username to get the ID from</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Int &#8211; the ID of the user</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.print_passwords">
+<tt class="descname">print_passwords</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Database.html#Database.print_passwords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Database.Database.print_passwords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints all (hashed) password from Passwords database</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.print_users">
+<tt class="descname">print_users</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Database.html#Database.print_users"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Database.Database.print_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints all users from User database</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="user">
+<h2>User<a class="headerlink" href="#user" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="User.User">
+<em class="property">class </em><tt class="descclassname">User.</tt><tt class="descname">User</tt><a class="reference internal" href="_modules/User.html#User"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#User.User" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="User.User.add_data">
+<tt class="descname">add_data</tt><big>(</big><em>destination</em>, <em>password</em><big>)</big><a class="reference internal" href="_modules/User.html#User.add_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#User.User.add_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds destination and password to user represented by the object its called from</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>destination</strong> &#8211; the desination the passwords belongs to</li>
+<li><strong>password</strong> &#8211; the password for the destination</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="User.User.auth">
+<tt class="descname">auth</tt><big>(</big><em>username</em>, <em>password</em><big>)</big><a class="reference internal" href="_modules/User.html#User.auth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#User.User.auth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Authenticates the user
+Warning: If the authentication fails, data could not be added or extracted              from the Database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>username</strong> &#8211; the username of the user</li>
+<li><strong>password</strong> &#8211; the password of the user</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="User.User.create">
+<tt class="descname">create</tt><big>(</big><em>user</em>, <em>password</em><big>)</big><a class="reference internal" href="_modules/User.html#User.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#User.User.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>user</strong> &#8211; the username of the user</li>
+<li><strong>password</strong> &#8211; the password of the new user</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="User.User.get_data">
+<tt class="descname">get_data</tt><big>(</big><em>destination</em><big>)</big><a class="reference internal" href="_modules/User.html#User.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#User.User.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the password of a desination (authentication required)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>desination</strong> &#8211; the destination to extract the password from</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">String &#8211; the decrypted password</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="User.User.username">
+<tt class="descname">username</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/User.html#User.username"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#User.User.username" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the username connected with this object</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 
@@ -237,7 +383,8 @@
   <ul>
 <li><a class="reference internal" href="#">Auto Generated Documentation</a><ul>
 <li><a class="reference internal" href="#password">Password</a></li>
-<li><a class="reference internal" href="#authenticate">Authenticate</a></li>
+<li><a class="reference internal" href="#database">Database</a></li>
+<li><a class="reference internal" href="#user">User</a></li>
 </ul>
 </li>
 </ul>

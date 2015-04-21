@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>User &mdash; UrPas 1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UrPas 1 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../main.html">UrPas 1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for User</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">Database</span>
+<span class="kn">import</span> <span class="nn">Password</span>
+
+<div class="viewcode-block" id="User"><a class="viewcode-back" href="../Auto.html#User.User">[docs]</a><span class="k">class</span> <span class="nc">User</span><span class="p">():</span>
+
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">pass</span>
+
+<div class="viewcode-block" id="User.add_data"><a class="viewcode-back" href="../Auto.html#User.User.add_data">[docs]</a>	<span class="k">def</span> <span class="nf">add_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+		<span class="sd">&#39;&#39;&#39;Adds destination and password to user represented by the object its called from</span>
+
+<span class="sd">		:param destination: the desination the passwords belongs to</span>
+<span class="sd">		:param password: the password for the destination</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">authenticated</span><span class="p">:</span>
+			<span class="k">print</span> <span class="s">&quot;User not authenticated&quot;</span>
+			<span class="k">return</span>
+
+		<span class="n">db</span> <span class="o">=</span> <span class="n">Database</span><span class="o">.</span><span class="n">Database</span><span class="p">()</span>
+		<span class="n">encrypted_password</span> <span class="o">=</span> <span class="n">Password</span><span class="o">.</span><span class="n">Password</span><span class="p">()</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+		<span class="n">db</span><span class="o">.</span><span class="n">_add_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">encrypted_password</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="User.get_data"><a class="viewcode-back" href="../Auto.html#User.User.get_data">[docs]</a>	<span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">):</span>
+		<span class="sd">&#39;&#39;&#39;Returns the password of a desination (authentication required)</span>
+
+<span class="sd">		:param desination: the destination to extract the password from</span>
+<span class="sd">		:returns: String -- the decrypted password</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">authenticated</span><span class="p">:</span>
+			<span class="k">print</span> <span class="s">&quot;User not authenticated&quot;</span>
+			<span class="k">return</span>
+
+		<span class="n">db</span> <span class="o">=</span> <span class="n">Database</span><span class="o">.</span><span class="n">Database</span><span class="p">()</span>
+		<span class="n">password</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">)</span>
+		<span class="n">decrypted_password</span> <span class="o">=</span> <span class="n">Password</span><span class="o">.</span><span class="n">Password</span><span class="p">()</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">decrypted_password</span>
+</div>
+<div class="viewcode-block" id="User.auth"><a class="viewcode-back" href="../Auto.html#User.User.auth">[docs]</a>	<span class="k">def</span> <span class="nf">auth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+		<span class="sd">&#39;&#39;&#39;Authenticates the user</span>
+<span class="sd">		Warning: If the authentication fails, data could not be added or extracted \</span>
+<span class="sd">		from the Database</span>
+
+<span class="sd">		:param username: the username of the user</span>
+<span class="sd">		:param password: the password of the user</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">password</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">authenticated</span> <span class="o">=</span> <span class="bp">False</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">Password</span><span class="o">.</span><span class="n">Password</span><span class="p">()</span><span class="o">.</span><span class="n">import_key</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_authenticate</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="User.username"><a class="viewcode-back" href="../Auto.html#User.User.username">[docs]</a>	<span class="k">def</span> <span class="nf">username</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&#39;&#39;&#39;Returns the username connected with this object</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span>
+</div>
+	<span class="k">def</span> <span class="nf">_authenticate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="n">hashed_password</span> <span class="o">=</span> <span class="n">Password</span><span class="o">.</span><span class="n">Password</span><span class="p">()</span><span class="o">.</span><span class="n">generate_hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">hashed_password</span> <span class="o">!=</span> <span class="n">Database</span><span class="o">.</span><span class="n">Database</span><span class="p">()</span><span class="o">.</span><span class="n">get_user_hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">):</span>
+			<span class="k">print</span> <span class="s">&quot;Wrong username or password&quot;</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">authenticated</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="k">print</span> <span class="s">&quot;Authenticated successfully!&quot;</span>
+
+	<span class="c">#def set_password(self, password):</span>
+	<span class="c">#	self.password = pasword</span>
+
+<div class="viewcode-block" id="User.create"><a class="viewcode-back" href="../Auto.html#User.User.create">[docs]</a>	<span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+		<span class="sd">&#39;&#39;&#39;Creates a new user</span>
+
+<span class="sd">		:param user: the username of the user</span>
+<span class="sd">		:param password: the password of the new user</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="k">print</span><span class="p">(</span><span class="s">&quot;Creating user...&quot;</span><span class="p">)</span>
+		<span class="n">encoded_password</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">Password</span><span class="o">.</span><span class="n">Password</span><span class="p">()</span><span class="o">.</span><span class="n">generate_key</span><span class="p">())</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">encoded_password</span>
+		<span class="n">hashed_password</span> <span class="o">=</span> <span class="n">Password</span><span class="o">.</span><span class="n">Password</span><span class="p">()</span><span class="o">.</span><span class="n">generate_hash</span><span class="p">(</span><span class="n">encoded_password</span><span class="p">)</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__user_is_in_database__</span><span class="p">():</span>
+			<span class="n">db</span> <span class="o">=</span> <span class="n">Database</span><span class="o">.</span><span class="n">Database</span><span class="p">()</span>
+			<span class="n">db</span><span class="o">.</span><span class="n">_add_user</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">hashed_password</span><span class="p">)</span>
+</div>
+	<span class="k">def</span> <span class="nf">__user_is_in_database__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;username&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;password&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">):</span>
+			<span class="k">return</span> <span class="bp">True</span>
+		<span class="k">return</span> <span class="bp">False</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../main.html">UrPas 1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Ivo Valchev and Borislav Rusinov.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
