@@ -15,5 +15,6 @@ How to run the tests?
 
 Dependencies: coverage.py (downloadable from Python's official site or by running "sudo pip install coverage"
 
-Run the following command in the main directory: "make".
+Run the following command in the main directory: "sudo make" (root access is needed in order to start xampp, otherwise the test will FAIL!
+
 Output is generated in htmlcov/index.html
