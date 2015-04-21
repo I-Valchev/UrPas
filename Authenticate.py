@@ -2,7 +2,9 @@ import hashlib
 import binascii
 
 class Authenticate:
+	
 	def set_password(self, password):
+
 		self.password = password
 
 	def print_password(self):

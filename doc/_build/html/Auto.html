@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Auto Generated Documentation &mdash; UrPas 1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="UrPas 1 documentation" href="index.html" />
+    <link rel="next" title="Project Summary" href="Project.html" />
+    <link rel="prev" title="Welcome to UrPas’s documentation!" href="main.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Project.html" title="Project Summary"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="main.html" title="Welcome to UrPas’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="main.html">UrPas 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="auto-generated-documentation">
+<h1>Auto Generated Documentation<a class="headerlink" href="#auto-generated-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="password">
+<h2>Password<a class="headerlink" href="#password" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Password.Password">
+<em class="property">class </em><tt class="descclassname">Password.</tt><tt class="descname">Password</tt><a class="reference internal" href="_modules/Password.html#Password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Password.Password" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="Password.Password.decrypt">
+<tt class="descname">decrypt</tt><big>(</big><em>encrypted_password</em>, <em>key</em><big>)</big><a class="reference internal" href="_modules/Password.html#Password.decrypt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Password.Password.decrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decrypts an encrypted password given a key</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>encrypted_password</strong> &#8211; password to be decrypted</li>
+<li><strong>key</strong> &#8211; the key needed to decrypt the password</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">String &#8211; the decrypted password.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Password.Password.encrypt">
+<tt class="descname">encrypt</tt><big>(</big><em>password</em>, <em>key</em><big>)</big><a class="reference internal" href="_modules/Password.html#Password.encrypt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Password.Password.encrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encrypts the given password using the given key</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>password</strong> &#8211; the password to be encrypted</li>
+<li><strong>key</strong> &#8211; the key used to encrypt the password</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Retuns:</th><td class="field-body"><p class="first last">String &#8211; the encrypted password</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Password.Password.generate">
+<tt class="descname">generate</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Password.html#Password.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Password.Password.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a password</p>
+<p>Dependencies: special, digits, uppercase and lowercase (either True or False)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Password.Password.generate_hash">
+<tt class="descname">generate_hash</tt><big>(</big><em>password</em><big>)</big><a class="reference internal" href="_modules/Password.html#Password.generate_hash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Password.Password.generate_hash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a hash by a given user password</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>password</strong> &#8211; the password to be hashed</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">String &#8211; the hashed password</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Password.Password.generate_key">
+<tt class="descname">generate_key</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Password.html#Password.generate_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Password.Password.generate_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a new key</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">an array representing the key</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Password.Password.import_key">
+<tt class="descname">import_key</tt><big>(</big><em>key</em><big>)</big><a class="reference internal" href="_modules/Password.html#Password.import_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Password.Password.import_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imports a key</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the decoded key</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Password.Password.set_digits">
+<tt class="descname">set_digits</tt><big>(</big><em>to_generate</em><big>)</big><a class="reference internal" href="_modules/Password.html#Password.set_digits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Password.Password.set_digits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows/forbids the generation of digits</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>to_generate</strong> &#8211; boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Password.Password.set_length">
+<tt class="descname">set_length</tt><big>(</big><em>length</em><big>)</big><a class="reference internal" href="_modules/Password.html#Password.set_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Password.Password.set_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the length of an automatically generated password</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Param:</th><td class="field-body">length - the length of the password to be generated</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Password.Password.set_lowercase">
+<tt class="descname">set_lowercase</tt><big>(</big><em>to_generate</em><big>)</big><a class="reference internal" href="_modules/Password.html#Password.set_lowercase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Password.Password.set_lowercase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows/forbids the generation of lowercases</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>to_generate</strong> &#8211; boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Password.Password.set_uppercase">
+<tt class="descname">set_uppercase</tt><big>(</big><em>to_generate</em><big>)</big><a class="reference internal" href="_modules/Password.html#Password.set_uppercase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Password.Password.set_uppercase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows/forbids the generation of uppercases</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>to_generate</strong> &#8211; boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Password.Password.special_symbols">
+<tt class="descname">special_symbols</tt><big>(</big><em>to_generate=True</em><big>)</big><a class="reference internal" href="_modules/Password.html#Password.special_symbols"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Password.Password.special_symbols" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows/forbids the generation of special special_symbols</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>to_generate</strong> &#8211; boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="authenticate">
+<h2>Authenticate<a class="headerlink" href="#authenticate" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="main.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Auto Generated Documentation</a><ul>
+<li><a class="reference internal" href="#password">Password</a></li>
+<li><a class="reference internal" href="#authenticate">Authenticate</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="main.html"
+                        title="previous chapter">Welcome to UrPas&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Project.html"
+                        title="next chapter">Project Summary</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Auto.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Project.html" title="Project Summary"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="main.html" title="Welcome to UrPas’s documentation!"
+             >previous</a> |</li>
+        <li><a href="main.html">UrPas 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Ivo Valchev and Borislav Rusinov.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

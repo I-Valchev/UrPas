@@ -11,11 +11,13 @@ class Password:
 		self.special = ""
 		self.uppercase = ""
 		self.digits = ""
-		self.set_lowercase(True) # default generation
+		self.set_lowercase(True) #: default generation
 		self.length = 10
 		self.times_to_encrypt = 100000
 		self.BLOCK_SIZE = 32
 
+
+	#key
 	def decrypt(self, encrypted_password, key):
 		"""Decrypts an encrypted password given a key
 
