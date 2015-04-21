@@ -38,13 +38,9 @@ class Password_test(unittest.TestCase):
 		self.p.set_digits(True)
 		self.assertEqual(self.p.digits, '0123456789')
 
-	def test_set_times_to_encrypt(self):
-		self.p.set_times_to_encrypt(1)
-		self.assertEqual(self.p.times_to_encrypt, 1)
-
-	def test_encrypt(self):
-		self.p.set_times_to_encrypt(2)
-		self.assertEqual(self.p.encrypt('password'), '1deba7cb12aa23d7e6dbf6e072117eac84f3ab5697defbf83e2b2f63')
+	def test_generate_hash(self):
+		self.assertEqual(self.p.generate_hash('password'), \
+			'6f5e0d544a2a40fb33a1ef36600a585ce5cebe0dc588e14d50bb4fad')
 
 if __name__ == '__main__':
 	unittest.main()

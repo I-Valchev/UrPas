@@ -8,6 +8,8 @@ import unittest
 password = Password.Password()
 base = Database.Database()
 
+print(password.generate_hash('password'))
+
 #base.clear_users()
 #base.clear_passwords()
 #user_key = password.generate_key()

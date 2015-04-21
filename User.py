@@ -49,13 +49,19 @@ class User():
 		self.key = Password.Password().import_key(password)
 		self._authenticate()
 
-	def username(self):
+	def get_username(self): #changed from def username()
 		'''Returns the username associated with this object
 		'''
 		return self.username
 
 	def _authenticate(self):
 		hashed_password = Password.Password().generate_hash(self.password)
+		user_hash = Database.Database().get_user_hash(self.username)
+		print("\n\n\n\nUSER")
+		print user_hash
+		print "hashed hash"
+		print hashed_password
+		print("\n\n\n")
 		if hashed_password != Database.Database().get_user_hash(self.username):
 			print "Wrong username or password"
 		else:
@@ -72,6 +78,7 @@ class User():
 		:param password: the password of the new user
 		'''
 		print("Creating user...")
+		self.username = user
 		encoded_password = ''.join(Password.Password().generate_key())
 		self.password = encoded_password
 		hashed_password = Password.Password().generate_hash(encoded_password)
