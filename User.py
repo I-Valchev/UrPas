@@ -66,6 +66,8 @@ class User():
 		self.key = Password.Password().import_key(password)
 		self._authenticate()
 
+		return self.authenticated
+
 	def get_username(self): #changed from def username()
 		'''Returns the username associated with this object
 		'''
@@ -91,7 +93,6 @@ class User():
 		:param user: the username of the user
 		:param password: the password of the new user
 		'''
-		print("Creating user...")
 		self.username = user
 		encoded_password = ''.join(Password.Password().generate_key())
 		self.password = encoded_password
@@ -99,8 +100,9 @@ class User():
 		if not self.__user_is_in_database__():
 			db = Database.Database()
 			db._add_user(user, hashed_password)
+			return True
 		else:
-			print "Failed. User already exists"
+			return False
 
 	def __user_is_in_database__(self):
 		if not getattr(self, 'username', None) or not getattr(self, 'password', None):
