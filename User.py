@@ -4,6 +4,7 @@ import Password
 class User():
 
 	def __init__(self):
+		self.authenticated = False
 		pass
 
 	def add_data(self, destination, password):
@@ -20,7 +21,7 @@ class User():
 		encrypted_password = Password.Password().encrypt(password, self.key)
 		db._add_data(self, destination, encrypted_password)
 
-	def get_data(self, destination):
+	def get_password(self, destination):
 		'''Returns the password of a desination (authentication required)
 
 		:param desination: the destination to extract the password from
@@ -31,9 +32,25 @@ class User():
 			return
 
 		db = Database.Database()
-		password = db._get_data(self, destination)
+		password = db._get_password(self, destination)
 		decrypted_password = Password.Password().decrypt(password, self.key)
 		return decrypted_password
+
+	def get_passwords(self, destinations):
+		result = list()
+		for destination in destinations:
+			result.append(self.get_password(destination))
+		return result
+
+	def get_destinations(self):
+		if not self.authenticated:
+			print "User not authenticated"
+			return
+
+		db = Database.Database()
+		destinations = db._get_destinations(self)
+		return destinations
+
 
 	def auth(self, username, password):
 		'''Authenticates the user
@@ -57,11 +74,8 @@ class User():
 	def _authenticate(self):
 		hashed_password = Password.Password().generate_hash(self.password)
 		user_hash = Database.Database().get_user_hash(self.username)
-		print("\n\n\n\nUSER")
-		print user_hash
-		print "hashed hash"
-		print hashed_password
-		print("\n\n\n")
+		#print user_hash
+		#print hashed_password
 		if hashed_password != Database.Database().get_user_hash(self.username):
 			print "Wrong username or password"
 		else:
@@ -85,6 +99,8 @@ class User():
 		if not self.__user_is_in_database__():
 			db = Database.Database()
 			db._add_user(user, hashed_password)
+		else:
+			print "Failed. User already exists"
 
 	def __user_is_in_database__(self):
 		if not getattr(self, 'username', None) or not getattr(self, 'password', None):

@@ -8,7 +8,7 @@ import unittest
 password = Password.Password()
 base = Database.Database()
 
-print(password.generate_hash('password'))
+#print(password.generate_hash('password'))
 
 #base.clear_users()
 #base.clear_passwords()
@@ -17,15 +17,15 @@ print(password.generate_hash('password'))
 #user.create("Ivo", user_key)
 #print user.password
 
-#user = User.User()
-#user.auth("Ivo", "EMNOIof2ukd28atohk+Exi3s/+HOkr+DJpzP/FZ/jQzY=")
-#user.add_data("www.google.bg", "ivo_pass")
-#my_password = user.get_data("www.google.bg")
-#print my_password
+user = User.User()
+user.auth("Ivo", "oedlhgAABdkLBe9CIUTU93wznTIrSurKcO55KsSK3fP0=")
+#user.add_data("testDest22", "testPass22")
+#destinations = user.get_destinations()
+#passwords = user.get_passwords(destinations)
 #print(base.get_user_id("Pesho"))
 #print(base.get_user_id("Pesho"))
 #base.print_users()
 '''
 User: Ivo
-Pass: EMNOIof2ukd28atohk+Exi3s/+HOkr+DJpzP/FZ/jQzY=
+Pass: oedlhgAABdkLBe9CIUTU93wznTIrSurKcO55KsSK3fP0=
 '''

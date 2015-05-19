@@ -21,7 +21,7 @@ class Database:
 			print "Warning: Destination (" + destination + ") already exists. Not added..."
 			pass
 
-	def _get_data(self, user, destination):
+	def _get_password(self, user, destination):
 		user_id = self.get_user_id(user.username)
 		self._execute("SELECT Password FROM Passwords WHERE UserID='%s' AND Destination = '%s'" % (user_id, destination))
 		user_row = self.cursor.fetchone()
@@ -29,6 +29,16 @@ class Database:
 			print "No password"
 			return
 		return user_row[0]
+
+	def _get_destinations(self, user):
+		user_id = self.get_user_id(user.username)
+		self._execute("SELECT Destination FROM Passwords WHERE UserID='%s'" % user_id)
+		destinations_tuple = self.cursor.fetchall()
+		result = list()
+		for element in destinations_tuple:
+			result.append(element[0])
+
+		return result
 
 	def _extract_user(self, username, column):
 		self._execute("SELECT %s FROM User WHERE Username='%s'" % (column, username))
