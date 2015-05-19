@@ -68,14 +68,8 @@ class GUI:
 		self.username_listbox.grid(row=0,column=0,sticky=W)
 		self.password_listbox = Listbox(root,width=40)
 		self.password_listbox.grid(row=0,column=1,sticky=W)
-		#list=["Facebook","Google"]
-		#list2=["1234","5678"]
-		
-		#for line in range(len(self.desinations_list)):
-	    #		self.username_list.insert(END,list[line])
-	   	#	self.password_list.insert(END,list2[line])	
 
-	   	self.update_lists()
+		self.update_lists()
 
 		self.username_listbox.grid()
 		self.password_listbox.grid()
@@ -139,6 +133,59 @@ class GUI:
 		else:
 			tkMessageBox.showinfo("Login info", "Incorrect username or password")
 
+	def remove_record(self):
+		self.remove_one_record_root=Tkinter.Tk()
+		self.remove_one_record_root.geometry("175x200")
+		self.remove_frame = Frame(self.remove_one_record_root)
+		self.remove_frame.grid()
+		self.remove_destination_label=Label(self.remove_frame,text="Remove destination:")
+		self.remove_destination_label.grid()
+		self.remove_destination_entry=Entry(self.remove_frame)
+		self.remove_destination_entry.grid()
+		self.remove_button=Button(self.remove_frame,text="Remove", command=self.remove_one_record)
+		self.remove_button.grid(row=3)
+
+	def remove_one_record(self):
+		tkMessageBox.showinfo("Remove status","Removed successfuly!")
+		self.remove_one_record_root.destroy()
+
+	def remove_all(self):
+		self.remove_root=Tkinter.Tk()
+		self.remove_root.geometry("175x200")
+		self.remove_all_frame = Frame(self.remove_root)
+		self.remove_all_frame.grid()
+		self.remove_all_button=Button(self.remove_all_frame,text="Remove all records", command=self.remove_all_records)
+		self.remove_all_button.grid(row=3)
+
+	def remove_all_records(self):
+		tkMessageBox.showinfo("Remove","Removed successfuly!")
+		self.remove_all_frame.destroy()
+		self.remove_root.destroy()
+
+	def edit_password(self):
+		self.edit_root=Tkinter.Tk()
+		self.edit_root.geometry("175x200")
+		self.edit_frame = Frame(self.edit_root)
+		self.edit_frame.grid()
+		#podavame parolata koqto iskame da se editne
+		self.edit_old_password_label=Label(self.edit_frame,text="Old password:")
+		self.edit_old_password_label.grid()
+		self.edit_old_password_entry=Entry(self.edit_frame)
+		self.edit_old_password_entry.grid()
+		#podavame novata parola
+		self.edit_new_password_label=Label(self.edit_frame,text="New password: ")
+		self.edit_new_password_label.grid()
+		self.edit_new_password_entry=Entry(self.edit_frame)
+		self.edit_new_password_entry.grid()
+		
+		self.edit_button=Button(self.edit_frame,text="Edit", command=self.edit_password_button)
+		self.edit_button.grid(row=4)
+
+	def edit_password_button(self):
+		tkMessageBox.showinfo("Edit status","Password edited successfuly!")
+		self.edit_root.destroy()
+
+
 	def create_menu(self):
 		self.list_data()		
 		self.login_username_label.grid_forget()
@@ -155,6 +202,9 @@ class GUI:
 
 		editmenu = Menu(menubar, tearoff=0)
 		editmenu.add_command(label="Add new record", command=self.add_new_record)
+		editmenu.add_command(label="Edit password", command=self.edit_password)
+		editmenu.add_command(label="Remove record", command=self.remove_record)
+		editmenu.add_command(label="Remove all records", command=self.remove_all)
 
 		editmenu.add_separator()
 
