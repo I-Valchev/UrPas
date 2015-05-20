@@ -24,4 +24,5 @@ Requirements
 ---
 
 Python version 2.7.X
+
 XAMPP with: user named "root", database named "UrPasDB" [XAMPP Instalation guide](http://ubuntuportal.com/2013/12/how-to-install-xampp-1-8-3-for-linux-in-ubuntu-desktop.html)
