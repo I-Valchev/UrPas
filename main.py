@@ -3,6 +3,7 @@ import Tkinter
 import tkMessageBox
 import User
 import Password
+import os
 
 
 root = Tkinter.Tk()
@@ -14,6 +15,9 @@ class GUI:
 		root.title("UrPas v 0.1")
 		self.frame = Frame(root)
 		self.frame.grid()
+
+		os.chdir("/opt/lampp")
+		os.system("sudo ./xampp start")
 
 		self.login_username_label = Label(self.frame, text="Username: ")
 		self.login_username_label.grid(row=0)
@@ -37,6 +41,9 @@ class GUI:
 		self.register_button = Button(self.frame, text="Register", command=self.register)
 		self.register_button.grid(row=4, column=1)
 
+	def __del__(self):
+		os.chdir("/opt/lampp")
+		os.system("sudo ./xampp stop")
 
 	def register(self):
 		self.register_username_entry.grid(row=3, column=1, pady=(40,0))
@@ -180,7 +187,7 @@ class GUI:
 		self.edit_destination_label.grid()
 		self.edit_destination_entry = Entry(self.edit_frame)
 		self.edit_destination_entry.grid()
-		
+
 		self.edit_new_password_label=Label(self.edit_frame,text="New password: ")
 		self.edit_new_password_label.grid()
 		self.edit_new_password_entry=Entry(self.edit_frame, show="*")
