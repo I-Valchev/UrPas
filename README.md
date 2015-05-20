@@ -1,6 +1,6 @@
 ![Logo](http://s24.postimg.org/vb2g9mla9/Ur_Pas_Logo.png)
 
-[![Build Status](https://travis-ci.org/I-Valchev/UrPas.svg?branch=master)](https://travis-ci.org/I-Valchev/UrPas) [![License](https://img.shields.io/hexpm/l/plug.svg)](https://img.shields.io/hexpm/l/plug.svg) ![Issues](https://img.shields.io/github/issues/I-Valchev/UrPas.svg) ![Stars](https://img.shields.io/github/stars/I-Valchev/UrPas.svg) ![Version](https://img.shields.io/badge/version-0.0.1-brightgreen.svg) 
+[![Build Status](https://travis-ci.org/I-Valchev/UrPas.svg?branch=master)](https://travis-ci.org/I-Valchev/UrPas) [![License](http://s29.postimg.org/x917x5o2r/license_apache_blue_1.png)](https://img.shields.io/hexpm/l/plug.svg) ![Issues](http://s2.postimg.org/rbovcedjp/issues_0_brightgreen.png) ![Stars](http://s13.postimg.org/6d8j2a7yr/stars_1_blue.png) ![Version](https://img.shields.io/badge/version-0.0.1-brightgreen.svg) 
 ![Coverage](https://img.shields.io/badge/coverage-56%25-yellowgreen.svg)
 
 Borislav Rusinov and Ivo Valchev
