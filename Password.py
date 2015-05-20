@@ -79,19 +79,18 @@ class Password:
 
 		return encrypted_password
 
-	
 	def set_length(self,length):
 		"""Sets the length of an automatically generated password
 
 		:param: length - the length of the password to be generated"""
 		self.length = length
 
-
 	def generate(self):
 		"""Generates a password
 
 		Dependencies: special, digits, uppercase and lowercase (either True or False)"""
 		chars = self.special + self.digits + self.uppercase + self.lowercase
+		print "CHARS: " + chars
 		return ''.join(random.choice(chars) for _ in range(self.length))
 
 	def special_symbols(self, to_generate=True):
@@ -117,7 +116,7 @@ class Password:
 
 		:param to_generate: boolean"""
 		if to_generate:
-			self.lowercase = string.lowercase
+			self.lowercase = string.ascii_lowercase
 		else:
 			self.lowercase = ""
 

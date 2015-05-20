@@ -231,13 +231,13 @@ class GUI:
 		self.lowercase.grid()
 		self.digits.grid()
 		'''
-		self.var1=False
+		self.special_symbols=False
 		self.special=Checkbutton(self.generate_root, text="Special symbols", command=self.symbol_state)
-		self.var2 = False
+		self.uppercase_symbols = False
 		self.uppercase=Checkbutton(self.generate_root, text="Uppercases", command=self.uppercase_state)
-		self.var3 = False
+		self.lowercase_symbols = False
 		self.lowercase=Checkbutton(self.generate_root, text="Lowercases", command=self.lowercase_state)
-		self.var4 = False
+		self.digit = False
 		self.digits=Checkbutton(self.generate_root, text="Digits", command=self.digits_state)
 		self.generate_button=Button(self.generate_frame, text="Generate", command=self.generate_password_button)		
 		self.generate_button.grid()
@@ -247,32 +247,32 @@ class GUI:
 		self.digits.grid()
 
 	def symbol_state(self):
-		self.var1=not self.var1
+		self.special_symbols = not self.special_symbols
 
 	def uppercase_state(self):
-		self.var2=not self.var2
+		self.uppercase_symbols = not self.uppercase_symbols
 
 	def lowercase_state(self):
-		self.var3=not self.var3
+		self.lowercase_symbols = not self.lowercase_symbols
 
 	def digits_state(self):
-		self.var4=not self.var4
+		self.digit = not self.digit
 
 	def generate_password_button(self):
-		print self.var1
-		print self.var2
-		print self.var3
-		print self.var4
-		if self.var1==True or self.var2==True:
-			tkMessageBox.showinfo("Generate status","Password generated successfully!")
-			self.special.grid_forget()
-			self.uppercase.grid_forget()
-			self.lowercase.grid_forget()
-			self.digits.grid_forget()
-			self.generate_button.destroy()
+		if self.special_symbols==True or self.lowercase_symbols==True or self.uppercase_symbols==True\
+				or self.digits==True:
+			p = Password.Password()
+			p.special_symbols(self.special_symbols)
+			p.set_uppercase(self.uppercase_symbols)
+			p.set_lowercase(self.lowercase_symbols)
+			p.set_digits(self.digit)
+
+			random_password = p.generate()
+			tkMessageBox.showinfo("Generate status","Password generated successfully!\n" + random_password)
+
 			self.generate_root.destroy()
 		else:
-			tkMessageBox.showinfo("err","err")
+			tkMessageBox.showinfo("Error","You must select at least one option")
 		
 
 	def create_menu(self):
