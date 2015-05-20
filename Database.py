@@ -21,6 +21,12 @@ class Database:
 			print "Warning: Destination (" + destination + ") already exists. Not added..."
 			pass
 
+	def _edit_password(self, user, destination, password):
+		user_id = self.get_user_id(user.username)
+		self._execute("UPDATE Passwords SET Password='%s'" % password)
+		self._commit()
+		return True
+
 	def _get_password(self, user, destination):
 		user_id = self.get_user_id(user.username)
 		self._execute("SELECT Password FROM Passwords WHERE UserID='%s' AND Destination = '%s'" % (user_id, destination))
@@ -48,6 +54,26 @@ class Database:
 			return
 			
 		return user_row
+
+	def _destination_exists(self, user, destination):
+		destinations = user.get_destinations()
+		return destination in destinations
+
+	def _delete_record(self, user, destination):
+		if not self._destination_exists(user, destination):
+			return False
+
+		user_id = self.get_user_id(user.username)
+		self._execute("DELETE FROM Passwords WHERE UserID='%d' AND Destination='%s'" % (user_id, destination))
+		self._commit()
+		return True
+
+	def _delete_all_records(self, user):
+		destinations = user.get_destinations()
+		for destination in destinations:
+			if not self._delete_record(user, destination):
+				return False
+		return True
 
 	def get_user_hash(self, username):
 		'''Given a username returns its hashed password

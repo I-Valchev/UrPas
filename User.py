@@ -14,12 +14,37 @@ class User():
 		:param password: the password for the destination
 		'''
 		if not self.authenticated:
-			print "User not authenticated"
-			return
+			return False
 
 		db = Database.Database()
 		encrypted_password = Password.Password().encrypt(password, self.key)
 		db._add_data(self, destination, encrypted_password)
+
+	def edit_password(self, destination, password):
+		if not self.authenticated:
+			return False
+		db = Database.Database()
+		encrypted_password = Password.Password().encrypt(password, self.key)
+		return db._edit_password(self, destination, encrypted_password)
+
+	def delete_record(self, destination):
+		'''Deletes a single record
+
+		:param destination: deletes the record with this destination
+		'''
+		if not self.authenticated:
+			return False
+
+		db = Database.Database()
+		return db._delete_record(self, destination)
+
+	def delete_all_records(self):
+		'''Deletes all records of a given user (both destinations and passwords)
+		'''
+		if not self.authenticated:
+			return False
+		db = Database.Database()
+		return db._delete_all_records(self)
 
 	def get_password(self, destination):
 		'''Returns the password of a desination (authentication required)
@@ -28,7 +53,6 @@ class User():
 		:returns: String -- the decrypted password
 		'''
 		if not self.authenticated:
-			print "User not authenticated"
 			return
 
 		db = Database.Database()
@@ -37,6 +61,8 @@ class User():
 		return decrypted_password
 
 	def get_passwords(self, destinations):
+		if not self.authenticated:
+			return
 		result = list()
 		for destination in destinations:
 			result.append(self.get_password(destination))
@@ -73,26 +99,13 @@ class User():
 		'''
 		return self.username
 
-	def _authenticate(self):
-		hashed_password = Password.Password().generate_hash(self.password)
-		user_hash = Database.Database().get_user_hash(self.username)
-		#print user_hash
-		#print hashed_password
-		if hashed_password != Database.Database().get_user_hash(self.username):
-			print "Wrong username or password"
-		else:
-			self.authenticated = True
-			print "Authenticated successfully!"
-
-	#def set_password(self, password):
-	#	self.password = pasword
-
 	def create(self, user, password):
 		'''Creates a new user
 
 		:param user: the username of the user
 		:param password: the password of the new user
 		'''
+
 		self.username = user
 		encoded_password = ''.join(Password.Password().generate_key())
 		self.password = encoded_password
@@ -103,6 +116,17 @@ class User():
 			return True
 		else:
 			return False
+
+	def _authenticate(self):
+		hashed_password = Password.Password().generate_hash(self.password)
+		user_hash = Database.Database().get_user_hash(self.username)
+		#print user_hash
+		#print hashed_password
+		if hashed_password != Database.Database().get_user_hash(self.username):
+			print "Wrong username or password"
+		else:
+			self.authenticated = True
+			print "Authenticated successfully!"
 
 	def __user_is_in_database__(self):
 		if not getattr(self, 'username', None) or not getattr(self, 'password', None):

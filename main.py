@@ -80,37 +80,34 @@ class GUI:
 
 	def add_new_record(self):
 		self.root=Tkinter.Tk()
+		self.root.title("Add record")
 		self.root.geometry("175x200")
 		self.save_frame = Frame(self.root)
 		self.save_frame.grid()
-		self.add_username_label=Label(self.save_frame,text="New destination:")
-		self.add_username_label.grid()
+		add_username_label=Label(self.save_frame,text="New destination:")
+		add_username_label.grid()
 		self.add_username_entry=Entry(self.save_frame)
 		self.add_username_entry.grid()
-		self.add_password_label=Label(self.save_frame, text="New password:")
-		self.add_password_label.grid()
-		self.add_password_entry=Entry(self.save_frame)
+		add_password_label=Label(self.save_frame, text="New password:")
+		add_password_label.grid()
+		self.add_password_entry=Entry(self.save_frame, show="*")
 		self.add_password_entry.grid()
-		self.confirm_password_label=Label(self.save_frame, text="Confirm password:")
-		self.confirm_password_label.grid()
+		confirm_password_label=Label(self.save_frame, text="Confirm password:")
+		confirm_password_label.grid()
 		self.confirm_password_entry=Entry(self.save_frame, show="*")
 		self.confirm_password_entry.grid()
 		self.save_button=Button(self.save_frame,text="Save",command=self.add_new_record_button)
 		self.save_button.grid(row=6, column=0)
 
 	def add_new_record_button(self):
-		#self.username_listbox.insert(END,self.add_username_entry.get())
-		#self.password_listbox.insert(END,self.add_password_entry.get())
 		if self.add_password_entry.get()==self.confirm_password_entry.get():
-			#self.username_listbox.insert(END,self.add_username_entry.get())
-			#self.password_listbox.insert(END,self.add_password_entry.get())	
-			self.user.add_data(self.add_username_entry.get(), self.add_password_entry.get())		
-			tkMessageBox.showinfo("Status","Save successfuly!")
+			self.user.add_data(self.add_username_entry.get(), self.add_password_entry.get())	
+			self.update_lists()	
+			tkMessageBox.showinfo("Status","Save successfully!")
 			self.save_frame.destroy()
 			self.root.destroy()
-			self.update_lists()
 		else:
-			tkMessageBox.showinfo("Status","Save unsuccessful! Passwords mismatch! Try again")
+			tkMessageBox.showinfo("Status","Failed to save! Passwords mismatch! Try again")
 
 	def help(self):
 		tkMessageBox.showinfo("About", ("It is simple password application "
@@ -136,54 +133,69 @@ class GUI:
 	def remove_record(self):
 		self.remove_one_record_root=Tkinter.Tk()
 		self.remove_one_record_root.geometry("175x200")
+		self.remove_one_record_root.title("Remove record")
 		self.remove_frame = Frame(self.remove_one_record_root)
 		self.remove_frame.grid()
-		self.remove_destination_label=Label(self.remove_frame,text="Remove destination:")
-		self.remove_destination_label.grid()
+		remove_destination_label=Label(self.remove_frame,text="Remove destination:")
+		remove_destination_label.grid()
 		self.remove_destination_entry=Entry(self.remove_frame)
 		self.remove_destination_entry.grid()
-		self.remove_button=Button(self.remove_frame,text="Remove", command=self.remove_one_record)
-		self.remove_button.grid(row=3)
+		remove_button=Button(self.remove_frame,text="Remove", command=self.remove_one_record)
+		remove_button.grid(row=3)
 
 	def remove_one_record(self):
-		tkMessageBox.showinfo("Remove status","Removed successfuly!")
-		self.remove_one_record_root.destroy()
+		destination = self.remove_destination_entry.get()
+		if self.user.delete_record(destination):
+			self.update_lists()
+			tkMessageBox.showinfo("Remove status","Removed successfuly!")
+			self.remove_one_record_root.destroy()
+		else:
+			tkMessageBox.showinfo("Status","Failed to remove! Destination does not exist! Try again")
 
 	def remove_all(self):
 		self.remove_root=Tkinter.Tk()
-		self.remove_root.geometry("175x200")
+		#self.remove_root.geometry("175x200")
+		self.remove_root.title("Remove all records")
 		self.remove_all_frame = Frame(self.remove_root)
 		self.remove_all_frame.grid()
 		self.remove_all_button=Button(self.remove_all_frame,text="Remove all records", command=self.remove_all_records)
 		self.remove_all_button.grid(row=3)
 
 	def remove_all_records(self):
-		tkMessageBox.showinfo("Remove","Removed successfuly!")
-		self.remove_all_frame.destroy()
-		self.remove_root.destroy()
+		if self.user.delete_all_records():
+			self.update_lists()
+			tkMessageBox.showinfo("Remove","Removed successfully!")
+			self.remove_all_frame.destroy()
+			self.remove_root.destroy()
+		else:
+			tkMessageBox.showinfo("Status","Failed to remove! Try again!")
 
 	def edit_password(self):
 		self.edit_root=Tkinter.Tk()
 		self.edit_root.geometry("175x200")
+		self.edit_root.title("Edit password")
 		self.edit_frame = Frame(self.edit_root)
 		self.edit_frame.grid()
-		#podavame parolata koqto iskame da se editne
-		self.edit_old_password_label=Label(self.edit_frame,text="Old password:")
-		self.edit_old_password_label.grid()
-		self.edit_old_password_entry=Entry(self.edit_frame)
-		self.edit_old_password_entry.grid()
-		#podavame novata parola
+		self.edit_destination_label = Label(self.edit_frame, text="Destination: ")
+		self.edit_destination_label.grid()
+		self.edit_destination_entry = Entry(self.edit_frame)
+		self.edit_destination_entry.grid()
+		
 		self.edit_new_password_label=Label(self.edit_frame,text="New password: ")
 		self.edit_new_password_label.grid()
-		self.edit_new_password_entry=Entry(self.edit_frame)
+		self.edit_new_password_entry=Entry(self.edit_frame, show="*")
 		self.edit_new_password_entry.grid()
 		
 		self.edit_button=Button(self.edit_frame,text="Edit", command=self.edit_password_button)
 		self.edit_button.grid(row=4)
 
 	def edit_password_button(self):
-		tkMessageBox.showinfo("Edit status","Password edited successfuly!")
-		self.edit_root.destroy()
+		if self.user.edit_password(self.edit_destination_entry.get(), self.edit_new_password_entry.get()):
+			self.update_lists()
+			tkMessageBox.showinfo("Edit status","Password edited successfuly!")
+			self.edit_root.destroy()
+		else:
+			tkMessageBox.showinfo("Edit status","Failed to edit password!")
 
 
 	def create_menu(self):
