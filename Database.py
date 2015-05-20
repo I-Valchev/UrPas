@@ -23,7 +23,7 @@ class Database:
 
 	def _edit_password(self, user, destination, password):
 		user_id = self.get_user_id(user.username)
-		self._execute("UPDATE Passwords SET Password='%s' WHERE Destination='%s' AND User='%s'" % (password,destination,user.username))
+		self._execute("UPDATE Passwords SET Password='%s' WHERE Destination='%s' AND UserID='%d'" % (password,destination,user_id))
 		self._commit()
 		return True
 
@@ -130,7 +130,7 @@ class Database:
 	def _add_user(self, user, password):
 		self._execute("INSERT IGNORE INTO User(Username, Hash) VALUES('%s', '%s')" % (user, password))
 		self._commit()
-		
+
 	def _has_user(self,user):
 		self._execute("SELECT * FROM User WHERE Username='%s'"% user.username)
 		result=self.cursor.fetchall()
