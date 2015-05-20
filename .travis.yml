@@ -2,7 +2,7 @@ language: python
 python:
     - "2.7"
 
-script: echo ""
+script: python main.py
 
 env:
   global:
