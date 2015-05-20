@@ -5,6 +5,27 @@ import User
 import Password
 import os
 
+'''
+class MyDialog:
+
+    def __init__(self, parent):
+
+        top = self.top = Toplevel(parent)
+
+        Label(top, text="Value").pack()
+
+        self.e = Entry(top)
+        self.e.pack(padx=5)
+
+        b = Button(top, text="OK", command=self.ok)
+        b.pack(pady=5)
+
+    def ok(self):
+
+        print "value is", self.e.get()
+
+        self.top.destroy()
+'''
 
 root = Tkinter.Tk()
 class GUI:
@@ -52,7 +73,15 @@ class GUI:
 		random_password = password_generator.generate_key()
 		if user.create(self.register_username_entry.get(), random_password):
 			print user.password
-			tkMessageBox.showinfo("Registration status", "Registration successful!\n" + user.password)
+			tkMessageBox.showinfo("Registration status", "Registration successful!\n")			
+			self.register_root=Tkinter.Tk()
+			self.register_root.title("Generated password")
+			self.text_label=Label(self.register_root,text="Your password: ")
+			self.text_label.grid()
+			self.text= Text(self.register_root)
+			self.text.insert(INSERT,user.password)
+			self.text.grid()
+
 		else:
 			tkMessageBox.showinfo("Registration status", "Registraton FAILED. This username already exists")
 
@@ -161,7 +190,6 @@ class GUI:
 
 	def remove_all(self):
 		self.remove_root=Tkinter.Tk()
-		#self.remove_root.geometry("175x200")
 		self.remove_root.title("Remove all records")
 		self.remove_all_frame = Frame(self.remove_root)
 		self.remove_all_frame.grid()
@@ -211,26 +239,6 @@ class GUI:
 		self.generate_frame.grid()
 		self.generate_password_label=Label(self.generate_frame,text="Generate: ")
 		self.generate_password_label.grid()
-		'''
-		self.CheckVar1 = IntVar()
-		self.special=Checkbutton(self.generate_root, text = "Special symbols", variable = self.CheckVar1)
-		self.CheckVar2 = IntVar()
-		self.CheckVar3= IntVar()
-		self.CheckVar4= IntVar()
-		self.uppercase = Checkbutton(self.generate_root, text = "Uppercases", variable = self.CheckVar2, \
-		                 onvalue = 1, offvalue = 0, height=2, \
-		                 width = 20)
-		self.lowercase = Checkbutton(self.generate_root, text = "Lowercases", variable = self.CheckVar3, \
-		                 onvalue = 1, offvalue = 0, height=2, \
-		                 width = 20)
-		self.digits = Checkbutton(self.generate_root, text = "Digits", variable = self.CheckVar4, \
-		                 onvalue = 1, offvalue = 0, height=2, \
-		                 width = 20)
-		self.special.grid()
-		self.uppercase.grid()
-		self.lowercase.grid()
-		self.digits.grid()
-		'''
 		self.special_symbols=False
 		self.special=Checkbutton(self.generate_root, text="Special symbols", command=self.symbol_state)
 		self.uppercase_symbols = False
@@ -261,6 +269,7 @@ class GUI:
 	def generate_password_button(self):
 		if self.special_symbols==True or self.lowercase_symbols==True or self.uppercase_symbols==True\
 				or self.digits==True:
+			tkMessageBox.showinfo("Generate status","Password generated successfully!\n")	
 			p = Password.Password()
 			p.special_symbols(self.special_symbols)
 			p.set_uppercase(self.uppercase_symbols)
@@ -268,8 +277,13 @@ class GUI:
 			p.set_digits(self.digit)
 
 			random_password = p.generate()
-			tkMessageBox.showinfo("Generate status","Password generated successfully!\n" + random_password)
-
+			self.new_generated_password=Tkinter.Tk()
+			self.new_generated_password.title("Generated password")
+			self.new_text_label=Label(self.new_generated_password,text="Generated password: ")
+			self.new_text_label.grid()
+			self.new_text= Text(self.new_generated_password)
+			self.new_text.insert(INSERT,random_password)
+			self.new_text.grid()
 			self.generate_root.destroy()
 		else:
 			tkMessageBox.showinfo("Error","You must select at least one option")
