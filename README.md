@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/I-Valchev/UrPas.svg?branch=master)](https://travis-ci.org/I-Valchev/UrPas)
+
 Borislav Rusinov and Ivo Valchev
 
 ---
