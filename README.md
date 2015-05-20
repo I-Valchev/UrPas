@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/I-Valchev/UrPas.svg?branch=master)](https://travis-ci.org/I-Valchev/UrPas)
+[![Build Status](https://travis-ci.org/I-Valchev/UrPas.svg?branch=master)](https://travis-ci.org/I-Valchev/UrPas) [![License](https://img.shields.io/hexpm/l/plug.svg)](https://img.shields.io/hexpm/l/plug.svg)
 
 Borislav Rusinov and Ivo Valchev
 
