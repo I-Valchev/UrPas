@@ -18,3 +18,11 @@ Dependencies: coverage.py (downloadable from Python's official site or by runnin
 Run the following command in the main directory: "sudo make" (root access is needed in order to start xampp, otherwise the test will FAIL!
 
 Output is generated in htmlcov/index.html
+
+---
+Requirements
+---
+
+Python version 2.7.X
+
+XAMPP with: user named "root", database named "UrPasDB" [XAMPP Instalation guide](http://ubuntuportal.com/2013/12/how-to-install-xampp-1-8-3-for-linux-in-ubuntu-desktop.html)
