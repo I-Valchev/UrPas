@@ -129,6 +129,5 @@ class User():
 			print "Authenticated successfully!"
 
 	def __user_is_in_database__(self):
-		if not getattr(self, 'username', None) or not getattr(self, 'password', None):
-			return True
-		return False
+		db=Database.Database()
+		return db._has_user(self)
