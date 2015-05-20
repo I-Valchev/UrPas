@@ -204,6 +204,76 @@ class GUI:
 		else:
 			tkMessageBox.showinfo("Edit status","Failed to edit password!")
 
+	def generate_password(self):
+		self.generate_root=Tkinter.Tk()
+		self.generate_root.title("Generate password")
+		self.generate_frame=Frame(self.generate_root)
+		self.generate_frame.grid()
+		self.generate_password_label=Label(self.generate_frame,text="Generate: ")
+		self.generate_password_label.grid()
+		'''
+		self.CheckVar1 = IntVar()
+		self.special=Checkbutton(self.generate_root, text = "Special symbols", variable = self.CheckVar1)
+		self.CheckVar2 = IntVar()
+		self.CheckVar3= IntVar()
+		self.CheckVar4= IntVar()
+		self.uppercase = Checkbutton(self.generate_root, text = "Uppercases", variable = self.CheckVar2, \
+		                 onvalue = 1, offvalue = 0, height=2, \
+		                 width = 20)
+		self.lowercase = Checkbutton(self.generate_root, text = "Lowercases", variable = self.CheckVar3, \
+		                 onvalue = 1, offvalue = 0, height=2, \
+		                 width = 20)
+		self.digits = Checkbutton(self.generate_root, text = "Digits", variable = self.CheckVar4, \
+		                 onvalue = 1, offvalue = 0, height=2, \
+		                 width = 20)
+		self.special.grid()
+		self.uppercase.grid()
+		self.lowercase.grid()
+		self.digits.grid()
+		'''
+		self.var1=False
+		self.special=Checkbutton(self.generate_root, text="Special symbols", command=self.symbol_state)
+		self.var2 = False
+		self.uppercase=Checkbutton(self.generate_root, text="Uppercases", command=self.uppercase_state)
+		self.var3 = False
+		self.lowercase=Checkbutton(self.generate_root, text="Lowercases", command=self.lowercase_state)
+		self.var4 = False
+		self.digits=Checkbutton(self.generate_root, text="Digits", command=self.digits_state)
+		self.generate_button=Button(self.generate_frame, text="Generate", command=self.generate_password_button)		
+		self.generate_button.grid()
+		self.special.grid()
+		self.uppercase.grid()
+		self.lowercase.grid()
+		self.digits.grid()
+
+	def symbol_state(self):
+		self.var1=not self.var1
+
+	def uppercase_state(self):
+		self.var2=not self.var2
+
+	def lowercase_state(self):
+		self.var3=not self.var3
+
+	def digits_state(self):
+		self.var4=not self.var4
+
+	def generate_password_button(self):
+		print self.var1
+		print self.var2
+		print self.var3
+		print self.var4
+		if self.var1==True or self.var2==True:
+			tkMessageBox.showinfo("Generate status","Password generated successfully!")
+			self.special.grid_forget()
+			self.uppercase.grid_forget()
+			self.lowercase.grid_forget()
+			self.digits.grid_forget()
+			self.generate_button.destroy()
+			self.generate_root.destroy()
+		else:
+			tkMessageBox.showinfo("err","err")
+		
 
 	def create_menu(self):
 		self.list_data()		
@@ -217,7 +287,10 @@ class GUI:
 		self.register_button.destroy()
 		menubar = Menu(root)
 		filemenu = Menu(menubar, tearoff=0)
+		filemenu.add_command(label="Generate password", command=self.generate_password)
+
 		filemenu.add_separator()
+		menubar.add_cascade(label="Generate", menu=filemenu)
 
 		editmenu = Menu(menubar, tearoff=0)
 		editmenu.add_command(label="Add new record", command=self.add_new_record)
