@@ -23,7 +23,7 @@ class Database:
 
 	def _edit_password(self, user, destination, password):
 		user_id = self.get_user_id(user.username)
-		self._execute("UPDATE Passwords SET Password='%s'" % password)
+		self._execute("UPDATE Passwords SET Password='%s' WHERE Destination = '%s'" % (password, destination)
 		self._commit()
 		return True
 
