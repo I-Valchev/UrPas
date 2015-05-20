@@ -1,6 +1,7 @@
 ![Logo](http://s24.postimg.org/vb2g9mla9/Ur_Pas_Logo.png)
 
-[![Build Status](https://travis-ci.org/I-Valchev/UrPas.svg?branch=master)](https://travis-ci.org/I-Valchev/UrPas) [![License](https://img.shields.io/hexpm/l/plug.svg)](https://img.shields.io/hexpm/l/plug.svg) ![Issues](https://img.shields.io/github/issues/I-Valchev/UrPas.svg) ![Stars](https://img.shields.io/github/stars/I-Valchev/UrPas.svg) ![Version](https://img.shields.io/badge/version-0.0.1-brightgreen.svg) ![Coverage](https://img.shields.io/badge/coverage-56%25-yellowgreen.svg)
+[![Build Status](https://travis-ci.org/I-Valchev/UrPas.svg?branch=master)](https://travis-ci.org/I-Valchev/UrPas) [![License](https://img.shields.io/hexpm/l/plug.svg)](https://img.shields.io/hexpm/l/plug.svg) ![Issues](https://img.shields.io/github/issues/I-Valchev/UrPas.svg) ![Stars](https://img.shields.io/github/stars/I-Valchev/UrPas.svg) ![Version](https://img.shields.io/badge/version-0.0.1-brightgreen.svg) 
+![Coverage](https://img.shields.io/badge/coverage-56%25-yellowgreen.svg)
 
 Borislav Rusinov and Ivo Valchev
 
