@@ -18,7 +18,7 @@ class User_test(unittest.TestCase):
         self.u.add_data("TestDestination", "TestPassword")
 
     def test_get_data_unauthenticated(self):
-        self.u.get_data(destination="TestDestination")
+        self.u.get_password(destination="TestDestination")
         
 if __name__ == '__main__':
     unittest.main()
