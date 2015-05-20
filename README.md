@@ -26,9 +26,3 @@ Requirements
 Python version 2.7.X
 
 XAMPP with: user named "root", database named "UrPasDB" [XAMPP Instalation guide](http://ubuntuportal.com/2013/12/how-to-install-xampp-1-8-3-for-linux-in-ubuntu-desktop.html)
-
-===
-Just a test
-===
-
-[![Build Status](https://img.shields.io/travis/https://github.com/I-Valchev/UrPas/master.svg?style=flat-square)](https://travis-ci.org/https://github.com/I-Valchev/UrPas)
